@@ -1,5 +1,4 @@
 import { ProvideAuth } from "./features/login/hooks/useAuth";
-import "./App.css";
 import {
   BrowserRouter as Router,
   Redirect,

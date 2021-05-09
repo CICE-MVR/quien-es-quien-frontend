@@ -1,5 +1,6 @@
 // Hook (use-auth.js)
 import React, { useState, useEffect, useContext, createContext } from "react";
+import { loginURL } from "../../../utils/api/routes";
 
 const authContext = createContext();
 
@@ -19,8 +20,9 @@ function useProvideAuth() {
   const [user, setUser] = useState(null);
   // Wrap any Firebase methods we want to use making sure ...
   // ... to save the user to state.
-  const signin = (email, password) => {
-    const user = { name: "vero" }; //fetch from api
+  const signin = async (email, password) => {
+    const response = await fetch(loginURL);
+    const user = await response.json();
     setUser(user);
     return user;
 
