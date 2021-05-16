@@ -15,15 +15,15 @@ export const LoginForm = ({ onClick }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <input
-        name="username"
+        name="email"
         placeholder="Email"
-        {...register("username", {
+        {...register("email", {
           required: true,
           pattern: /^[^@]+@[^@]+\.[^@]+$/,
         })}
       />
-      {errors.username?.type === "required" && <p>Your email is required</p>}
-      {errors.username?.type === "pattern" && <p>Please enter a valid email</p>}
+      {errors.email?.type === "required" && <p>Your email is required</p>}
+      {errors.email?.type === "pattern" && <p>Please enter a valid email</p>}
 
       <input
         name="password"

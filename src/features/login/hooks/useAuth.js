@@ -20,11 +20,23 @@ function useProvideAuth() {
   const [user, setUser] = useState(null);
   // Wrap any Firebase methods we want to use making sure ...
   // ... to save the user to state.
-  const signin = async (email, password) => {
-    const response = await fetch(loginURL);
-    const user = await response.json();
+  const signin = async ({ email, password }) => {
+    const response = await fetch(loginURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+    if (!response.ok) {
+      const { err } = await response.json();
+      return { error: err };
+    }
+    const { user, token } = await response.json();
+    localStorage.setItem("jwt", token);
+    localStorage.setItem("user", JSON.stringify(user));
     setUser(user);
-    return user;
+    return { success: user };
 
     // return firebase
     //   .auth()

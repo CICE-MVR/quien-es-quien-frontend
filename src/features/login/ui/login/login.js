@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { LoginForm } from "../../components/login-form/login-form";
 import { useAuth } from "../../hooks/useAuth";
 
 export const Login = () => {
   const { signin } = useAuth();
+  const [error, setError] = useState(false);
 
   const history = useHistory();
   const location = useLocation();
@@ -12,16 +13,17 @@ export const Login = () => {
   const { from } = location.state || { from: { pathname: "/" } };
 
   const login = async (data) => {
-    console.log(data);
-    const success = await signin(data);
+    const { success, error } = await signin(data);
     if (success) {
-      history.replace(from);
+      return history.replace(from);
     }
+    setError(error);
   };
 
   return (
     <>
       <LoginForm onClick={login} />
+      {error && <p>{error}</p>}
     </>
   );
 };
