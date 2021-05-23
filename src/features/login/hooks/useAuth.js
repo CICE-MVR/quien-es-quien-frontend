@@ -46,7 +46,7 @@ function useProvideAuth() {
     //     return response.user;
     //   });
   };
-  const signup = (email, password) => {
+  const signup = (_email, _password) => {
     // return firebase
     //   .auth()
     //   .createUserWithEmailAndPassword(email, password)
