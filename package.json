@@ -7,7 +7,6 @@
     "@testing-library/react": "11.2.6",
     "@testing-library/user-event": "12.8.3",
     "faker": "5.5.3",
-    "lint-staged": "11.0.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "7.5.0",
@@ -21,7 +20,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
-    "format": "prettier --write --ignore-path .gitignore ."
+    "format": "prettier --write --ignore-path .gitignore .",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -36,7 +36,8 @@
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --write",
       "eslint"
-    ]
+    ],
+    "*.{js,css,md}": "prettier --write"
   },
   "browserslist": {
     "production": [
@@ -51,6 +52,8 @@
     ]
   },
   "devDependencies": {
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "prettier": "2.3.0"
   }
 }
