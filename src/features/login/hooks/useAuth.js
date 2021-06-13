@@ -56,13 +56,8 @@ function useProvideAuth() {
     //   });
   };
   const signout = () => {
+    localStorage.clear();
     setUser(false);
-    // return firebase
-    //   .auth()
-    //   .signOut()
-    //   .then(() => {
-    //     setUser(false);
-    //   });
   };
 
   // Subscribe to user on mount
