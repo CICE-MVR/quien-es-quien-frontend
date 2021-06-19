@@ -6,7 +6,7 @@ export const FollowingList = ({ users = example }) => {
   return (
     <>
       <div>
-        {users.map((username) => (
+        {users.map(({ username }) => (
           <div>
             <img
               alt={`${username} avatar`}
