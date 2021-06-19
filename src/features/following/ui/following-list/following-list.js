@@ -7,7 +7,7 @@ export const FollowingList = ({ users = example }) => {
     <>
       <div>
         {users.map(({ username }) => (
-          <div>
+          <div key={username}>
             <img
               alt={`${username} avatar`}
               src={`https://robohash.org/${username}`}
