@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect, Route } from "react-router";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../../../core/hooks/useAuth";
 
 // From https://reactrouter.com/web/example/auth-workflow
 

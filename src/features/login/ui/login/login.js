@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { LoginForm } from "../../components/login-form/login-form";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../../../core/hooks/useAuth";
 
 export const Login = () => {
   const { signin, user } = useAuth();

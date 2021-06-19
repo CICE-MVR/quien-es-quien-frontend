@@ -1,6 +1,6 @@
 // Hook (use-auth.js)
 import React, { useState, useEffect, useContext, createContext } from "react";
-import { loginURL } from "../../../utils/api/routes";
+import { loginURL, registerURL } from "../../utils/api/routes";
 
 const authContext = createContext();
 
@@ -38,14 +38,23 @@ function useProvideAuth() {
     setUser(user);
     return { success: user };
   };
-  const signup = (_email, _password) => {
-    // return firebase
-    //   .auth()
-    //   .createUserWithEmailAndPassword(email, password)
-    //   .then((response) => {
-    //     setUser(response.user);
-    //     return response.user;
-    //   });
+  const signup = async ({ username, email, password }) => {
+    const response = await fetch(registerURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, email, password }),
+    });
+    if (!response.ok) {
+      const { err } = await response.json();
+      return { error: err };
+    }
+    const { user, token } = await response.json();
+    localStorage.setItem("jwt", token);
+    localStorage.setItem("user", JSON.stringify(user));
+    setUser(user);
+    return { success: user };
   };
 
   const signout = () => {

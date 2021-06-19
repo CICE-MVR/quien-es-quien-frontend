@@ -1,4 +1,5 @@
-import { ProvideAuth } from "./features/login/hooks/useAuth";
+import { ProvideAuth } from "./core/hooks/useAuth";
+
 import {
   BrowserRouter as Router,
   Redirect,

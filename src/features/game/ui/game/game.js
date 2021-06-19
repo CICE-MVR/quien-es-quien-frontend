@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth } from "../../../login/hooks/useAuth";
+import { useAuth } from "../../../../core/hooks/useAuth";
 
 export const Game = () => {
   const { user } = useAuth();

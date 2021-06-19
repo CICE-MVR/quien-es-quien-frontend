@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Chat } from "../../../chat/ui/chat/chat";
 import { NavBar } from "../../../../core/components/nav-bar/nav-bar";
-import { useAuth } from "../../../login/hooks/useAuth";
+import { useAuth } from "../../../../core/hooks/useAuth";
 import { FollowingList } from "../../../following/ui/following-list/following-list";
 
 export const Hall = () => {
