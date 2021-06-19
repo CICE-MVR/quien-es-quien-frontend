@@ -37,14 +37,6 @@ function useProvideAuth() {
     localStorage.setItem("user", JSON.stringify(user));
     setUser(user);
     return { success: user };
-
-    // return firebase
-    //   .auth()
-    //   .signInWithEmailAndPassword(email, password)
-    //   .then((response) => {
-    //     setUser(response.user);
-    //     return response.user;
-    //   });
   };
   const signup = (_email, _password) => {
     // return firebase
@@ -55,6 +47,7 @@ function useProvideAuth() {
     //     return response.user;
     //   });
   };
+
   const signout = () => {
     localStorage.clear();
     setUser(false);
