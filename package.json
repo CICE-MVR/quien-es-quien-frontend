@@ -34,7 +34,8 @@
         {
           "argsIgnorePattern": "^_"
         }
-      ]
+      ],
+      "jsx-a11y/alt-text": "error"
     }
   },
   "lint-staged": {
