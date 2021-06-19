@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { LoginForm } from "../../components/login-form/login-form";
 import { useAuth } from "../../../../core/hooks/useAuth";
 
@@ -28,8 +28,10 @@ export const Login = () => {
 
   return (
     <>
+      <h2>Login</h2>
       <LoginForm onClick={login} />
       {error && <p>{error}</p>}
+      <Link to="/register">or create a new account</Link>
     </>
   );
 };

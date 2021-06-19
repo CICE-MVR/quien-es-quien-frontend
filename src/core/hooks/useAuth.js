@@ -38,6 +38,7 @@ function useProvideAuth() {
     setUser(user);
     return { success: user };
   };
+
   const signup = async ({ username, email, password }) => {
     const response = await fetch(registerURL, {
       method: "POST",
@@ -50,10 +51,8 @@ function useProvideAuth() {
       const { err } = await response.json();
       return { error: err };
     }
-    const { user, token } = await response.json();
-    localStorage.setItem("jwt", token);
-    localStorage.setItem("user", JSON.stringify(user));
-    setUser(user);
+    const { user } = await response.json();
+
     return { success: user };
   };
 

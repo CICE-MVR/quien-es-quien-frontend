@@ -28,7 +28,7 @@ test("submitting the form calls onClick with the username and password", async (
   // wait for react hook form
   await waitFor(() => expect(screen.queryAllByRole("alert")).toHaveLength(0));
 
-  expect(handleOnClick).toHaveBeenCalledWith({ username: email, password });
+  expect(handleOnClick).toHaveBeenCalledWith({ email, password });
   expect(handleOnClick).toHaveBeenCalledTimes(1);
 });
 
