@@ -38,6 +38,12 @@ export const Chat = ({ username = "anon", room = "hall" }) => {
       <div>
         {chatHistory.map((chat, index) => (
           <div key={index}>
+            <img
+              width="25"
+              height="25"
+              alt={`${chat.username} avatar`}
+              src={`https://robohash.org/${chat.username.toLowerCase()}`}
+            />
             <span>{chat.username}:</span>
             <span>{chat.message}</span>
           </div>
