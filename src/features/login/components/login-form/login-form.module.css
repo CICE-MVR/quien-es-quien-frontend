@@ -1,0 +1,10 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.errors {
+  color: var(--color-dark-violet);
+  margin: 0;
+  padding: 0;
+}

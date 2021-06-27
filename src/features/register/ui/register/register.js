@@ -25,10 +25,18 @@ export const Register = () => {
 
   return (
     <>
-      <h2>Register to create a new account </h2>
+      <div>
+        <img src="./png/unicornregister.png" alt="logo" width={130} />
+      </div>
+      <p className="title boldText">Registrate para obtener tu cuenta! </p>
       <RegisterForm onClick={register} />
       {error && <p>{error}</p>}
-      <Link to="/login">or login</Link>
+      <p className="title boldText colorPrimary">
+        Hay muchos amigos esperandote!
+      </p>
+      <Link className="link subtitle lightText" to="/login">
+        Ahora ya puedes loguearte
+      </Link>
     </>
   );
 };

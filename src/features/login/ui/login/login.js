@@ -28,10 +28,16 @@ export const Login = () => {
 
   return (
     <>
-      <h2>Login</h2>
+      <div>
+        <img src="./png/unicornLogin.png" alt="logo" width={130} />
+      </div>
+      <p className="title boldText">yey! Ya puedes comenzar a jugar ;)</p>
       <LoginForm onClick={login} />
       {error && <p>{error}</p>}
-      <Link to="/register">or create a new account</Link>
+      <p className="title boldText colorPrimary">y a divertirse!</p>
+      <Link className="link subtitle lightText" to="/register">
+        ... o haz click aquí para crear una cuenta nueva y poder ingresar.
+      </Link>
     </>
   );
 };

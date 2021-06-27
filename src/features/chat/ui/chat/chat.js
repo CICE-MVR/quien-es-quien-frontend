@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import { hostName } from "../../../../utils/api/config";
 
-export const Chat = ({ username = "anon", room = "hall" }) => {
+export const Chat = ({ myUsername = "anon", room = "hall" }) => {
   const socket = useRef();
   const [inputValue, setInputValue] = useState("");
+  // const [onlinePeople, setOnlinePeople] = useState({});
   const [chatHistory, setChatHistory] = useState([]);
 
   const appendMesageToHistory = (response) => {
@@ -17,6 +18,17 @@ export const Chat = ({ username = "anon", room = "hall" }) => {
     socket.current.on("response", (response) =>
       appendMesageToHistory(response)
     );
+    // socket.current.on("connected", ({ socketId, username }) => {
+    //   socket.current.emit("wave", {
+    //     socketId: socket.id,
+    //     username: myUsername,
+    //   });
+    //   setOnlinePeople((op) => ({ ...op, [socketId]: username }));
+    // });
+    socket.current.on("wave", () => {
+      //actulizar lista conectados
+    });
+    socket.current.on("disconnect");
     return () => socket.current.removeAllListeners();
   }, [room, socket]);
 
@@ -29,7 +41,7 @@ export const Chat = ({ username = "anon", room = "hall" }) => {
     e?.preventDefault();
     const message = inputValue;
     setInputValue("");
-    socket.current.emit("message", { room, username, message });
+    socket.current.emit("message", { room, myUsername, message });
     return false;
   };
 

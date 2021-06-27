@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 
+import cn from "classnames";
+import styles from "./login-form.module.css";
+
 export const LoginForm = ({ onClick }) => {
   const {
     register,
@@ -13,26 +16,36 @@ export const LoginForm = ({ onClick }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      {errors.email?.type === "required" && (
+        <p className={cn("staticText", styles.errors)}>Ingresa tu email</p>
+      )}
+      {errors.email?.type === "pattern" && (
+        <p className={cn("staticText", styles.errors)}>
+          Ingresa un email valido
+        </p>
+      )}
       <input
+        className="input"
         name="email"
-        placeholder="Email"
+        placeholder="quierojugar@quienesquien.com"
         {...register("email", {
           required: true,
           pattern: /^[^@]+@[^@]+\.[^@]+$/,
         })}
       />
-      {errors.email?.type === "required" && <p>Your email is required</p>}
-      {errors.email?.type === "pattern" && <p>Please enter a valid email</p>}
 
+      {errors.password && (
+        <p className={cn("staticText", styles.errors)}>Ingresa tu password</p>
+      )}
       <input
+        className="input"
         name="password"
         type="password"
-        placeholder="Password"
+        placeholder="Contraseña"
         {...register("password", { required: true })}
       />
-      {errors.password && <p>Please fill in your password</p>}
-      <button>Login</button>
+      <button className="button">A jugar!</button>
     </form>
   );
 };

@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 
+import cn from "classnames";
+import styles from "./register-form.module.css";
+
 export const RegisterForm = ({ onClick }) => {
   const {
     register,
@@ -13,16 +16,30 @@ export const RegisterForm = ({ onClick }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      {errors.username?.type === "required" && (
+        <p className={cn("staticText", styles.errors)}>
+          Escoge un nombre, como quieres que te llamen?
+        </p>
+      )}
       <input
+        className="input"
         name="username"
-        placeholder="Username"
+        placeholder="Nickname"
         {...register("username", {
           required: true,
         })}
       />
-      {errors.username?.type === "required" && <p>Please choose a username</p>}
+      {errors.email?.type === "required" && (
+        <p className={cn("staticText", styles.errors)}>Ingresa tu email</p>
+      )}
+      {errors.email?.type === "pattern" && (
+        <p className={cn("staticText", styles.errors)}>
+          Ingresa un email válido
+        </p>
+      )}
       <input
+        className="input"
         name="email"
         placeholder="Email"
         {...register("email", {
@@ -30,17 +47,18 @@ export const RegisterForm = ({ onClick }) => {
           pattern: /^[^@]+@[^@]+\.[^@]+$/,
         })}
       />
-      {errors.email?.type === "required" && <p>Your email is required</p>}
-      {errors.email?.type === "pattern" && <p>Please enter a valid email</p>}
 
+      {errors.password && (
+        <p className={cn("staticText", styles.errors)}>Ingresa tu contraseña</p>
+      )}
       <input
+        className="input"
         name="password"
         type="password"
-        placeholder="Password"
+        placeholder="Contraseña"
         {...register("password", { required: true })}
       />
-      {errors.password && <p>Please fill in your password</p>}
-      <button>Register</button>
+      <button className="button">Registrarme</button>
     </form>
   );
 };
