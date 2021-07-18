@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import { hostName } from "../../../../utils/api/config";
+import { OnlinePlayers } from "../onlinePlayers/online-players";
 
 export const Chat = ({ myUsername = "anon", room = "hall" }) => {
   const socket = useRef();
@@ -42,7 +43,7 @@ export const Chat = ({ myUsername = "anon", room = "hall" }) => {
     });
 
     return () => socket.current.removeAllListeners();
-  }, [room, socket]);
+  }, [myUsername, room, socket]);
 
   const onInputChange = (event) => {
     const value = event.target.value;
@@ -58,9 +59,10 @@ export const Chat = ({ myUsername = "anon", room = "hall" }) => {
   };
 
   console.log(onlinePeople);
-
+  const onlinePeopleArray = Object.entries(onlinePeople);
   return (
     <>
+      <OnlinePlayers players={onlinePeopleArray} />
       <div>
         {chatHistory.map((chat, index) => (
           <div key={index}>
@@ -68,7 +70,7 @@ export const Chat = ({ myUsername = "anon", room = "hall" }) => {
               width="25"
               height="25"
               alt={`${chat.username} avatar`}
-              src={`https://robohash.org/${chat?.username?.toLowerCase()}`}
+              src={`https://robohash.org/${chat?.username?.toLowerCase()}?set=set4`}
             />
             <span>{chat.username}:</span>
             <span>{chat.message}</span>
