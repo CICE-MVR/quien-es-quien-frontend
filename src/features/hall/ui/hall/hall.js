@@ -13,7 +13,7 @@ export const Hall = () => {
     <>
       <NavBar signout={signout} />
       Hola, estas logueado {user.username}
-      <Chat myUsername={user.username} room={"hall"} />
+      <Chat myUsername={user.username} room={"hall"} mode={"hall"} />
       <FollowingList users={following} />
     </>
   );

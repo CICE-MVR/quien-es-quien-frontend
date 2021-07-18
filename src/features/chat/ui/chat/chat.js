@@ -3,12 +3,19 @@ import { useHistory } from "react-router-dom";
 import { io } from "socket.io-client";
 import { Avatar } from "../../../../core/components/avatar/avatar";
 import { hostName } from "../../../../utils/api/config";
+import { GuessModal } from "../../../game/components/guessModal/guess-modal";
 import { InviteModal } from "../../../hall/componentes/inviteModal/invite-modal";
 import { RejectedModal } from "../../../hall/componentes/rejectedModal/rejected-modal";
 import { ResponseModal } from "../../../hall/componentes/responseModal/response-modal";
 import { OnlinePlayers } from "../onlinePlayers/online-players";
 
-export const Chat = ({ myUsername = "anon", room = "hall" }) => {
+export const Chat = ({
+  myUsername = "anon",
+  room = "hall",
+  mode = "hall",
+  characterId,
+  cards = [],
+}) => {
   const socket = useRef();
   let history = useHistory();
 
@@ -18,18 +25,35 @@ export const Chat = ({ myUsername = "anon", room = "hall" }) => {
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [showResponseModal, setShowResponseModal] = useState(false);
   const [showRejectedModal, setShowRejectedModal] = useState(false);
+  const [showGuessModal, setShowGuessModal] = useState(false);
+
   const [senderInfo, setSenderInfo] = useState(null);
   const [recipientInfo, setRecipientInfo] = useState(null);
 
   const onAvatarPress = (recipient) => {
-    setRecipientInfo(recipient);
-    setShowInviteModal(true);
+    if (mode === "hall") {
+      setRecipientInfo(recipient);
+      setShowInviteModal(true);
+    }
   };
 
   const onModalClose = () => {
     setShowInviteModal(false);
     setShowResponseModal(false);
     setShowRejectedModal(false);
+    setShowGuessModal(false);
+  };
+
+  const onGuess = (cardId) => {
+    socket.current.emit("make-guess", {
+      guess: cardId,
+      username: myUsername,
+      room,
+    });
+  };
+
+  const onWantToGuess = () => {
+    setShowGuessModal(true);
   };
 
   const onInviteToPlay = () => {
@@ -70,14 +94,10 @@ export const Chat = ({ myUsername = "anon", room = "hall" }) => {
         username: myUsername,
         room,
       });
-      if (socketId !== socket.current.id) {
-        setOnlinePeople((op) => ({ ...op, [socketId]: username }));
-      }
+      setOnlinePeople((op) => ({ ...op, [socketId]: username }));
     });
     socket.current.on("wave", ({ socketId, username }) => {
-      if (socketId !== socket.current.id) {
-        setOnlinePeople((op) => ({ ...op, [socketId]: username }));
-      }
+      setOnlinePeople((op) => ({ ...op, [socketId]: username }));
     });
     socket.current.on("disconnected", ({ socketId }) => {
       setOnlinePeople((op) => {
@@ -97,13 +117,29 @@ export const Chat = ({ myUsername = "anon", room = "hall" }) => {
     socket.current.on("invitation-accepted", ({ gameId }) => {
       history.push(`/game/${gameId}`);
     });
+    socket.current.on("make-guess", ({ guess }) => {
+      if (guess === characterId) {
+        socket.current.emit("correct-guess", { room });
+        console.log("Defeat");
+      } else {
+        socket.current.emit("wrong-guess", { room });
+        console.log("victory");
+      }
+    });
+    socket.current.on("correct-guess", () => {
+      console.log("victory");
+    });
+    socket.current.on("wrong-guess", () => {
+      console.log("Defeat");
+    });
 
     socket.current.emit("join-room", { username: myUsername, room });
+
     return () => {
       socket.current.removeAllListeners();
       socket.current.disconnect();
     };
-  }, [myUsername, room, socket]);
+  }, [characterId, history, myUsername, room, socket]);
 
   const onInputChange = (event) => {
     const value = event.target.value;
@@ -119,9 +155,10 @@ export const Chat = ({ myUsername = "anon", room = "hall" }) => {
   };
 
   const onlinePeopleArray = Object.entries(onlinePeople);
-  console.log(onlinePeopleArray);
+
   return (
     <>
+      <button onClick={onWantToGuess}>arriesgar</button>
       <OnlinePlayers
         players={onlinePeopleArray}
         onAvatarPress={onAvatarPress}
@@ -165,6 +202,12 @@ export const Chat = ({ myUsername = "anon", room = "hall" }) => {
         sender={senderInfo?.username}
         visible={showRejectedModal}
         onClose={onModalClose}
+      />
+      <GuessModal
+        cards={cards}
+        visible={showGuessModal}
+        onClose={onModalClose}
+        onGuess={onGuess}
       />
     </>
   );
