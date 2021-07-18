@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
+import { Avatar } from "../../../../core/components/avatar/avatar";
 import { hostName } from "../../../../utils/api/config";
 import { OnlinePlayers } from "../onlinePlayers/online-players";
 
 export const Chat = ({ myUsername = "anon", room = "hall" }) => {
   const socket = useRef();
+
   const [inputValue, setInputValue] = useState("");
   const [onlinePeople, setOnlinePeople] = useState([]);
   const [chatHistory, setChatHistory] = useState([]);
@@ -15,7 +17,6 @@ export const Chat = ({ myUsername = "anon", room = "hall" }) => {
 
   useEffect(() => {
     socket.current = io(hostName);
-    socket.current.emit("join-room", { username: myUsername, room });
     socket.current.on("response", (response) =>
       appendMesageToHistory(response)
     );
@@ -41,8 +42,11 @@ export const Chat = ({ myUsername = "anon", room = "hall" }) => {
         return people;
       });
     });
-
-    return () => socket.current.removeAllListeners();
+    socket.current.emit("join-room", { username: myUsername, room });
+    return () => {
+      socket.current.removeAllListeners();
+      socket.current.disconnect();
+    };
   }, [myUsername, room, socket]);
 
   const onInputChange = (event) => {
@@ -58,20 +62,15 @@ export const Chat = ({ myUsername = "anon", room = "hall" }) => {
     return false;
   };
 
-  console.log(onlinePeople);
   const onlinePeopleArray = Object.entries(onlinePeople);
+  console.log(onlinePeopleArray);
   return (
     <>
       <OnlinePlayers players={onlinePeopleArray} />
       <div>
         {chatHistory.map((chat, index) => (
           <div key={index}>
-            <img
-              width="25"
-              height="25"
-              alt={`${chat.username} avatar`}
-              src={`https://robohash.org/${chat?.username?.toLowerCase()}?set=set4`}
-            />
+            <Avatar username={chat.username} size={25} />
             <span>{chat.username}:</span>
             <span>{chat.message}</span>
           </div>

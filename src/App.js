@@ -25,7 +25,7 @@ function App() {
             <PrivateRoute path="/hall">
               <Hall />
             </PrivateRoute>
-            <PrivateRoute path="/game">
+            <PrivateRoute path="/game/:gameId">
               <Game />
             </PrivateRoute>
             <Route path="/">
