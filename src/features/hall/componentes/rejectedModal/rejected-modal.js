@@ -2,21 +2,14 @@ import React from "react";
 import { Avatar } from "../../../../core/components/avatar/avatar";
 import { Modal } from "../../../../core/components/modal/Modal";
 
-export const ResponseModal = ({
-  sender,
-  visible,
-  onClose,
-  onAccept,
-  onReject,
-}) => {
+export const RejectedModal = ({ sender, visible, onClose }) => {
   return (
     <Modal visible={visible} onClose={onClose}>
       <div>
         <Avatar username={sender} />
-        <p>{sender} te invita a jugar</p>
+        <p>{sender} No puede jugar contigo en este momento</p>
         <div>
-          <button onClick={onReject}>Rechazar</button>
-          <button onClick={onAccept}>Aceptar</button>
+          <button onClick={onClose}>cerrar</button>
         </div>
       </div>
     </Modal>
