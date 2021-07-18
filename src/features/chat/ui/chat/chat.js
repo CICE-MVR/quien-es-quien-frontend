@@ -5,7 +5,7 @@ import { hostName } from "../../../../utils/api/config";
 export const Chat = ({ myUsername = "anon", room = "hall" }) => {
   const socket = useRef();
   const [inputValue, setInputValue] = useState("");
-  // const [onlinePeople, setOnlinePeople] = useState({});
+  const [onlinePeople, setOnlinePeople] = useState([]);
   const [chatHistory, setChatHistory] = useState([]);
 
   const appendMesageToHistory = (response) => {
@@ -14,21 +14,33 @@ export const Chat = ({ myUsername = "anon", room = "hall" }) => {
 
   useEffect(() => {
     socket.current = io(hostName);
-    socket.current.emit("join-room", room);
+    socket.current.emit("join-room", { username: myUsername, room });
     socket.current.on("response", (response) =>
       appendMesageToHistory(response)
     );
-    // socket.current.on("connected", ({ socketId, username }) => {
-    //   socket.current.emit("wave", {
-    //     socketId: socket.id,
-    //     username: myUsername,
-    //   });
-    //   setOnlinePeople((op) => ({ ...op, [socketId]: username }));
-    // });
-    socket.current.on("wave", () => {
-      //actulizar lista conectados
+    socket.current.on("connected", ({ socketId, username }) => {
+      socket.current.emit("wave", {
+        socketId: socket.current.id,
+        username: myUsername,
+        room,
+      });
+      if (socketId !== socket.current.id) {
+        setOnlinePeople((op) => ({ ...op, [socketId]: username }));
+      }
     });
-    socket.current.on("disconnect");
+    socket.current.on("wave", ({ socketId, username }) => {
+      if (socketId !== socket.current.id) {
+        setOnlinePeople((op) => ({ ...op, [socketId]: username }));
+      }
+    });
+    socket.current.on("disconnected", ({ socketId }) => {
+      setOnlinePeople((op) => {
+        const people = { ...op };
+        delete people[socketId];
+        return people;
+      });
+    });
+
     return () => socket.current.removeAllListeners();
   }, [room, socket]);
 
@@ -41,9 +53,11 @@ export const Chat = ({ myUsername = "anon", room = "hall" }) => {
     e?.preventDefault();
     const message = inputValue;
     setInputValue("");
-    socket.current.emit("message", { room, myUsername, message });
+    socket.current.emit("message", { room, username: myUsername, message });
     return false;
   };
+
+  console.log(onlinePeople);
 
   return (
     <>
@@ -54,7 +68,7 @@ export const Chat = ({ myUsername = "anon", room = "hall" }) => {
               width="25"
               height="25"
               alt={`${chat.username} avatar`}
-              src={`https://robohash.org/${chat.username.toLowerCase()}`}
+              src={`https://robohash.org/${chat?.username?.toLowerCase()}`}
             />
             <span>{chat.username}:</span>
             <span>{chat.message}</span>

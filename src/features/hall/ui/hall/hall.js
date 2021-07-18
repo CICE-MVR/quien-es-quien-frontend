@@ -7,14 +7,14 @@ import { FollowingList } from "../../../following/ui/following-list/following-li
 export const Hall = () => {
   const { user, signout } = useAuth();
 
-  const following = [{ username: "vero" }, { username: "anon" }];
+  const following = []; //[{ username: "vero" }, { username: "anon" }];
 
   console.log(user);
   return (
     <>
       <NavBar signout={signout} />
       Hola, estas logueado {user.username}
-      <Chat username={user.username} room={"hall"} />
+      <Chat myUsername={user.username} room={"hall"} />
       <FollowingList users={following} />
     </>
   );
