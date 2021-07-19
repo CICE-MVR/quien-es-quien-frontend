@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { io } from "socket.io-client";
+
 import { Avatar } from "../../../../core/components/avatar/avatar";
 import { hostName } from "../../../../utils/api/config";
 import { GuessModal } from "../../../game/components/guessModal/guess-modal";
@@ -8,6 +9,8 @@ import { InviteModal } from "../../../hall/componentes/inviteModal/invite-modal"
 import { RejectedModal } from "../../../hall/componentes/rejectedModal/rejected-modal";
 import { ResponseModal } from "../../../hall/componentes/responseModal/response-modal";
 import { OnlinePlayers } from "../onlinePlayers/online-players";
+
+import styles from "./chat.module.css";
 
 export const Chat = ({
   myUsername = "anon",
@@ -122,7 +125,7 @@ export const Chat = ({
         socket.current.emit("correct-guess", { room });
         console.log("Defeat");
       } else {
-        socket.current.emit("wrong-guess", { room });
+        // socket.current.emit("wrong-guess", { room });
         console.log("victory");
       }
     });
@@ -158,33 +161,48 @@ export const Chat = ({
 
   return (
     <>
-      <button onClick={onWantToGuess}>arriesgar</button>
-      <OnlinePlayers
-        players={onlinePeopleArray}
-        onAvatarPress={onAvatarPress}
-      />
-      {/* comienza el chat */}
-      <div>
-        <div>
-          {chatHistory.map((chat, index) => (
-            <div key={index}>
-              <Avatar username={chat.username} size={25} />
-              <span>{chat.username}:</span>
-              <span>{chat.message}</span>
+      <div className={styles.backgroundContainer}>
+        {mode !== "hall" && (
+          <button className="button" onClick={onWantToGuess}>
+            Arriesgar
+          </button>
+        )}
+        <div className={styles.chatContainer}>
+          {/* comienza el chat */}
+          <div className={styles.chat}>
+            <div>
+              {chatHistory.map((chat, index) => (
+                <div key={index}>
+                  <Avatar username={chat.username} size={25} />
+                  <span>{chat.username}: </span>
+                  <span>{chat.message}</span>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <form onSubmit={onPostMessage}>
-          <input
-            placeholder="Escriba aqui"
-            onChange={onInputChange}
-            value={inputValue}
-          />
-        </form>
-        <button onClick={onPostMessage}>Enviar</button>
-      </div>
-      {/* termina el chat */}
 
+            <div className={styles.form}>
+              <form onSubmit={onPostMessage}>
+                <input
+                  className="input"
+                  placeholder="Escriba aqui..."
+                  onChange={onInputChange}
+                  value={inputValue}
+                />
+              </form>
+              <button className="button" onClick={onPostMessage}>
+                Enviar mensaje
+              </button>
+            </div>
+          </div>
+          {/* termina el chat */}
+          {mode !== "game" && (
+            <OnlinePlayers
+              players={onlinePeopleArray}
+              onAvatarPress={onAvatarPress}
+            />
+          )}
+        </div>
+      </div>
       <InviteModal
         recipient={recipientInfo?.username}
         visible={showInviteModal}

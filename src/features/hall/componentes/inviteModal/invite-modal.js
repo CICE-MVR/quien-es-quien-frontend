@@ -15,10 +15,14 @@ export const InviteModal = ({
   return (
     <Modal visible={visible} onClose={onClose}>
       <div>
-        <Avatar username={recipient} />
-        <p>Quieres invitar a {recipient} a jugar?</p>
+        <Avatar username={recipient} size={60} />
+        <p>
+          ¿Quieres invitar a <strong>{recipient}</strong> a jugar?
+        </p>
         <div>
-          <button onClick={onClick}>Invitar a jugar</button>
+          <button className="button" onClick={onClick}>
+            Si, invitar
+          </button>
         </div>
       </div>
     </Modal>

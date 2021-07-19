@@ -17,7 +17,9 @@ export const GuessModal = ({ cards = [], visible, onClose, onGuess }) => {
           Si aciertas ganaras la partida, de lo contrario tu contrincante ganara
         </p>
         <div>
-          <button onClick={onClose}>cerrar</button>
+          <button className="button" onClick={onClose}>
+            cerrar
+          </button>
         </div>
       </div>
     </Modal>

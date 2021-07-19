@@ -4,6 +4,8 @@ import { NavBar } from "../../../../core/components/nav-bar/nav-bar";
 import { useAuth } from "../../../../core/hooks/useAuth";
 import { FollowingList } from "../../../following/ui/following-list/following-list";
 
+import styles from "./hall.module.css";
+
 export const Hall = () => {
   const { user, signout } = useAuth();
 
@@ -11,10 +13,11 @@ export const Hall = () => {
 
   return (
     <>
-      <NavBar signout={signout} />
-      Hola, estas logueado {user.username}
-      <Chat myUsername={user.username} room={"hall"} mode={"hall"} />
-      <FollowingList users={following} />
+      <NavBar signout={signout} user={user.username} />
+      <div className={styles.chatHall}>
+        <FollowingList users={following} />
+        <Chat myUsername={user.username} room={"hall"} mode={"hall"} />
+      </div>
     </>
   );
 };

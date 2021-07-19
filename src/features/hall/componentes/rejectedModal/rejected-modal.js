@@ -9,7 +9,9 @@ export const RejectedModal = ({ sender, visible, onClose }) => {
         <Avatar username={sender} />
         <p>{sender} No puede jugar contigo en este momento</p>
         <div>
-          <button onClick={onClose}>cerrar</button>
+          <button className="button" onClick={onClose}>
+            cerrar
+          </button>
         </div>
       </div>
     </Modal>
