@@ -9,6 +9,8 @@ import { Game } from "./features/game/ui/game/game";
 
 import styles from "./App.module.css";
 import { Landing } from "./features/landing/ui/landing/landing";
+import { Defeat } from "./features/game/ui/defeat/defeat";
+import { Victory } from "./features/game/ui/victory/victory";
 
 function App() {
   return (
@@ -24,6 +26,12 @@ function App() {
             </Route>
             <PrivateRoute path="/hall">
               <Hall />
+            </PrivateRoute>
+            <PrivateRoute path="/victory">
+              <Victory />
+            </PrivateRoute>
+            <PrivateRoute path="/gameover">
+              <Defeat />
             </PrivateRoute>
             <PrivateRoute path="/game/:gameId">
               <Game />

@@ -125,17 +125,17 @@ export const Chat = ({
     socket.current.on("make-guess", ({ guess }) => {
       if (guess === characterId) {
         socket.current.emit("correct-guess", { room });
-        console.log("Defeat");
+        history.push("/gameover");
       } else {
         socket.current.emit("wrong-guess", { room });
-        console.log("victory");
+        history.push("/victory");
       }
     });
     socket.current.on("correct-guess", () => {
-      console.log("victory");
+      history.push("/victory");
     });
     socket.current.on("wrong-guess", () => {
-      console.log("Defeat");
+      history.push("/gameover");
     });
 
     socket.current.emit("join-room", { username: myUsername, room });
