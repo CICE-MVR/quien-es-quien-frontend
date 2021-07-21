@@ -127,7 +127,7 @@ export const Chat = ({
         socket.current.emit("correct-guess", { room });
         console.log("Defeat");
       } else {
-        // socket.current.emit("wrong-guess", { room });
+        socket.current.emit("wrong-guess", { room });
         console.log("victory");
       }
     });
