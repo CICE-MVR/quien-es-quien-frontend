@@ -11,6 +11,7 @@ import { ResponseModal } from "../../../hall/componentes/responseModal/response-
 import { OnlinePlayers } from "../onlinePlayers/online-players";
 
 import styles from "./chat.module.css";
+import { Card } from "../../../../core/components/card/card";
 
 export const Chat = ({
   myUsername = "anon",
@@ -18,6 +19,7 @@ export const Chat = ({
   mode = "hall",
   characterId,
   cards = [],
+  className = "",
 }) => {
   const socket = useRef();
   let history = useHistory();
@@ -161,47 +163,50 @@ export const Chat = ({
 
   return (
     <>
-      <div className={styles.backgroundContainer}>
-        <div className={styles.chatContainer}>
-          {/* comienza el chat */}
-          <div className={styles.chat}>
-            <div className={styles.divScroll}>
-              {chatHistory.map((chat, index) => (
-                <div key={index}>
-                  <Avatar username={chat.username} size={20} />
-                  <span className="boldText">{chat.username}: </span>
-                  <span>{chat.message}</span>
-                </div>
-              ))}
-            </div>
+      <div className={styles.container}>
+        {mode !== "hall" && (
+          <Card className={styles.card}>
+            <p className="boldText">¿Ya descubriste la carta de tu oponente?</p>
+            <button className="button" onClick={onWantToGuess}>
+              Arriesgar
+            </button>
+          </Card>
+        )}
+        <div className={className}>
+          <div className={styles.chatContainer}>
+            {/* comienza el chat */}
+            <div className={styles.chat}>
+              <div className={styles.divScroll}>
+                {chatHistory.map((chat, index) => (
+                  <div key={index}>
+                    <Avatar username={chat.username} size={20} />
+                    <span className="boldText">{chat.username}: </span>
+                    <span>{chat.message}</span>
+                  </div>
+                ))}
+              </div>
 
-            <div className={styles.form}>
-              <form onSubmit={onPostMessage}>
+              <form onSubmit={onPostMessage} className={styles.form}>
                 <input
                   className="input"
                   placeholder="Escriba aqui..."
                   onChange={onInputChange}
                   value={inputValue}
                 />
+                <button className="button" onClick={onPostMessage}>
+                  Enviar
+                </button>
               </form>
-              <button className="button" onClick={onPostMessage}>
-                Enviar mensaje
-              </button>
             </div>
+            {/* termina el chat */}
+            {mode !== "game" && (
+              <OnlinePlayers
+                players={onlinePeopleArray}
+                onAvatarPress={onAvatarPress}
+              />
+            )}
           </div>
-          {/* termina el chat */}
-          {mode !== "game" && (
-            <OnlinePlayers
-              players={onlinePeopleArray}
-              onAvatarPress={onAvatarPress}
-            />
-          )}
         </div>
-        {mode !== "hall" && (
-          <button className="button" onClick={onWantToGuess}>
-            Arriesgar
-          </button>
-        )}
       </div>
       <InviteModal
         recipient={recipientInfo?.username}

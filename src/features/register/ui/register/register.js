@@ -4,6 +4,8 @@ import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../../../core/hooks/useAuth";
 import { RegisterForm } from "../../components/register-form/register-form";
 
+import styles from "./register.module.css";
+
 export const Register = () => {
   const { signup, user } = useAuth();
   const [error, setError] = useState(false);
@@ -24,7 +26,7 @@ export const Register = () => {
   }, [user, history]);
 
   return (
-    <>
+    <div className={styles.container}>
       <div>
         <img src="./png/unicornregister.png" alt="logo" width={130} />
       </div>
@@ -37,6 +39,6 @@ export const Register = () => {
       <Link className="link subtitle lightText" to="/login">
         Ahora ya puedes loguearte
       </Link>
-    </>
+    </div>
   );
 };

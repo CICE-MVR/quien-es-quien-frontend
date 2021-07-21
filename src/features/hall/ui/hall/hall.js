@@ -12,12 +12,16 @@ export const Hall = () => {
   const following = []; //[{ username: "vero" }, { username: "anon" }];
 
   return (
-    <>
-      <NavBar signout={signout} user={user.username} />
+    <div className={styles.container}>
+      <NavBar
+        title={`¡Hola, ${user.username}! Llegaste justo a tiempo...¿con quién vas a jugar hoy?`}
+        signout={signout}
+        user={user.username}
+      />
       <div className={styles.chatHall}>
         <FollowingList users={following} />
         <Chat myUsername={user.username} room={"hall"} mode={"hall"} />
       </div>
-    </>
+    </div>
   );
 };

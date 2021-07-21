@@ -3,6 +3,8 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import { LoginForm } from "../../components/login-form/login-form";
 import { useAuth } from "../../../../core/hooks/useAuth";
 
+import styles from "./login.module.css";
+
 export const Login = () => {
   const { signin, user } = useAuth();
   const [error, setError] = useState(false);
@@ -27,7 +29,7 @@ export const Login = () => {
   }, [user, from, history]);
 
   return (
-    <>
+    <div className={styles.container}>
       <div>
         <img src="./png/unicornLogin.png" alt="logo" width={130} />
       </div>
@@ -38,6 +40,6 @@ export const Login = () => {
       <Link className="link subtitle lightText" to="/register">
         ... o haz click aquí para crear una cuenta nueva y poder ingresar.
       </Link>
-    </>
+    </div>
   );
 };

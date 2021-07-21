@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Avatar } from "../../../../core/components/avatar/avatar";
+import { Card } from "../../../../core/components/card/card";
+// import { NavBar } from "../../../../core/components/nav-bar/nav-bar";
 import { useAuth } from "../../../../core/hooks/useAuth";
 import { Board } from "../../../board/ui/board/board";
 import { Chat } from "../../../chat/ui/chat/chat";
 import styles from "./game.module.css";
 
-const cardSeeds = "qwertuopasdfgjklzxñcv2345678".split("");
+const cardSeeds = "q8ertuopasdfgjklzxñcv234567".split("");
 
 const createDeck = () => {
   return cardSeeds.map((seed) => ({ seed, turned: false }));
@@ -47,24 +49,22 @@ export const Game = () => {
 
   return (
     <>
-      <p className="colorWhite title boldText">
-        Este es tu juego! Vamos a adivinar {user.username}!
-      </p>
+      {/* <NavBar title={`Este es tu juego! Vamos a adivinar ${user.username}!`} signout={signout} user={user.username} /> */}
       <div className={styles.gameContainer}>
-        <Board cards={cards} onCardClicked={onCardClicked} />
-        <div>
-          
-        </div>
-        <Chat
-          myUsername={user.username}
-          room={gameId}
-          mode={"game"}
-          cards={cards}
-          characterId={character}
-        />
-        <div className={styles.mycard}>
-          <p className="boldText">Esta es tu carta:</p>
-          <Avatar username={character} size={180} />
+        <Board cards={cards} onCardClicked={onCardClicked} cardSizes={90} />
+        <div className={styles.chatContainer}>
+          <Chat
+            myUsername={user.username}
+            room={gameId}
+            mode={"game"}
+            cards={cards}
+            characterId={character}
+            className={styles.chat}
+          />
+          <Card>
+            <p className="boldText">Esta es tu carta:</p>
+            <Avatar username={character} size={180} />
+          </Card>
         </div>
       </div>
     </>
