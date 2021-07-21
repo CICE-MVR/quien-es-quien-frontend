@@ -1,6 +1,6 @@
 import React from "react";
 import { Avatar } from "../../../../core/components/avatar/avatar";
-import { Modal } from "../../../../core/components/modal/Modal";
+import { Modal } from "../../../../core/components/modal/modal";
 
 export const InviteModal = ({
   recipient,

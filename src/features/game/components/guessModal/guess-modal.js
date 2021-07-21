@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal } from "../../../../core/components/modal/Modal";
+import { Modal } from "../../../../core/components/modal/modal";
 import { Board } from "../../../board/ui/board/board";
 import styles from "./guess-modal.module.css";
 

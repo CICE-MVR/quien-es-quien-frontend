@@ -1,7 +1,7 @@
 import React from "react";
 import className from "classnames";
 
-import styles from "./Modal.module.css";
+import styles from "./modal.module.css";
 
 export const Modal = ({ onClose, visible, children }) => {
   const backdropClass = className({

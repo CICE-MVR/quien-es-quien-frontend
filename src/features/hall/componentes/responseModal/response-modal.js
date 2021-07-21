@@ -1,6 +1,6 @@
 import React from "react";
 import { Avatar } from "../../../../core/components/avatar/avatar";
-import { Modal } from "../../../../core/components/modal/Modal";
+import { Modal } from "../../../../core/components/modal/modal";
 import styles from "./response-modal.module.css";
 import cn from "classnames";
 
