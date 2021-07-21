@@ -6,7 +6,7 @@ import { Board } from "../../../board/ui/board/board";
 import { Chat } from "../../../chat/ui/chat/chat";
 import styles from "./game.module.css";
 
-const cardSeeds = "qwertyuiopasdfghjklzxñcv".split("");
+const cardSeeds = "qwertuopasdfgjklzxñcv2345678".split("");
 
 const createDeck = () => {
   return cardSeeds.map((seed) => ({ seed, turned: false }));
@@ -39,7 +39,7 @@ export const Game = () => {
     // in case of reload, the character is read from localStorage
     let characterId = localStorage.getItem(gameId);
     if (!characterId) {
-      const characterId = cards[getCharacter()]?.seed;
+      characterId = cards[getCharacter()]?.seed;
       localStorage.setItem(gameId, characterId);
     }
     setCharacter(characterId);
@@ -52,6 +52,9 @@ export const Game = () => {
       </p>
       <div className={styles.gameContainer}>
         <Board cards={cards} onCardClicked={onCardClicked} />
+        <div>
+          
+        </div>
         <Chat
           myUsername={user.username}
           room={gameId}

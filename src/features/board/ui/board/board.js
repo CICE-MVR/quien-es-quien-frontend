@@ -19,12 +19,14 @@ export const Board = ({
           return (
             <div key={card.seed} onClick={onClick}>
               {card.turned ? (
-                <img
-                  width={cardSizes}
-                  height={cardSizes}
-                  alt="turned"
-                  src="http://www.adammarcus.com/wp/wp-content/uploads/2013/10/image001.jpg"
-                />
+                <div className={styles.myCardturned}>
+                  <img
+                    width={cardSizes}
+                    height={cardSizes}
+                    alt="turned"
+                    src="../png/logo.png"
+                  />
+                </div>
               ) : (
                 <div className={styles.myCard}>
                   <Avatar username={card.seed} size={cardSizes} />
