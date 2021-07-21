@@ -1,9 +1,10 @@
 import React from "react";
 import { Avatar } from "../../../../core/components/avatar/avatar";
+import styles from "./board.module.css";
 
 export const Board = ({
   cards,
-  cardSizes = 80,
+  cardSizes = 100,
   onCardClicked,
   showTurned = true,
 }) => {
@@ -12,11 +13,11 @@ export const Board = ({
     : cards.filter((card) => !card.turned);
   return (
     <>
-      <div>
+      <div className={styles.boardContainer}>
         {filteredCards.map((card) => {
           const onClick = () => onCardClicked(card.seed);
           return (
-            <span key={card.seed} onClick={onClick}>
+            <div key={card.seed} onClick={onClick}>
               {card.turned ? (
                 <img
                   width={cardSizes}
@@ -25,9 +26,11 @@ export const Board = ({
                   src="http://www.adammarcus.com/wp/wp-content/uploads/2013/10/image001.jpg"
                 />
               ) : (
-                <Avatar username={card.seed} size={cardSizes} />
+                <div className={styles.myCard}>
+                  <Avatar username={card.seed} size={cardSizes} />
+                </div>
               )}
-            </span>
+            </div>
           );
         })}
       </div>

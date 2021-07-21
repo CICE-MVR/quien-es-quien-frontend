@@ -4,8 +4,9 @@ import { Avatar } from "../../../../core/components/avatar/avatar";
 import { useAuth } from "../../../../core/hooks/useAuth";
 import { Board } from "../../../board/ui/board/board";
 import { Chat } from "../../../chat/ui/chat/chat";
+import styles from "./game.module.css";
 
-const cardSeeds = "qwertyuiopasdfghjklzxcvbnm".split("");
+const cardSeeds = "qwertyuiopasdfghjklzxñcv".split("");
 
 const createDeck = () => {
   return cardSeeds.map((seed) => ({ seed, turned: false }));
@@ -46,19 +47,23 @@ export const Game = () => {
 
   return (
     <>
-      Hola, este es el juago {user.username}
-      <Board cards={cards} onCardClicked={onCardClicked} />
-      <div>
-        <span>Your card is </span>
-        <Avatar username={character} size={110} />
+      <p className="colorWhite title boldText">
+        Este es tu juego! Vamos a adivinar {user.username}!
+      </p>
+      <div className={styles.gameContainer}>
+        <Board cards={cards} onCardClicked={onCardClicked} />
+        <Chat
+          myUsername={user.username}
+          room={gameId}
+          mode={"game"}
+          cards={cards}
+          characterId={character}
+        />
+        <div className={styles.mycard}>
+          <p className="boldText">Esta es tu carta:</p>
+          <Avatar username={character} size={180} />
+        </div>
       </div>
-      <Chat
-        myUsername={user.username}
-        room={gameId}
-        mode={"game"}
-        cards={cards}
-        characterId={character}
-      />
     </>
   );
 };

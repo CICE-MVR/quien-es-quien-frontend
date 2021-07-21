@@ -1,0 +1,16 @@
+.boardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 600px;
+}
+
+.myCard {
+  background-color: var(--color-white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  width: 130px;
+  height: 130px;
+  margin: 5px;
+}

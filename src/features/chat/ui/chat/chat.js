@@ -162,19 +162,14 @@ export const Chat = ({
   return (
     <>
       <div className={styles.backgroundContainer}>
-        {mode !== "hall" && (
-          <button className="button" onClick={onWantToGuess}>
-            Arriesgar
-          </button>
-        )}
         <div className={styles.chatContainer}>
           {/* comienza el chat */}
           <div className={styles.chat}>
-            <div>
+            <div className={styles.divScroll}>
               {chatHistory.map((chat, index) => (
                 <div key={index}>
-                  <Avatar username={chat.username} size={25} />
-                  <span>{chat.username}: </span>
+                  <Avatar username={chat.username} size={20} />
+                  <span className="boldText">{chat.username}: </span>
                   <span>{chat.message}</span>
                 </div>
               ))}
@@ -202,6 +197,11 @@ export const Chat = ({
             />
           )}
         </div>
+        {mode !== "hall" && (
+          <button className="button" onClick={onWantToGuess}>
+            Arriesgar
+          </button>
+        )}
       </div>
       <InviteModal
         recipient={recipientInfo?.username}

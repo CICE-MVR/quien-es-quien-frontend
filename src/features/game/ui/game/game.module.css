@@ -1,0 +1,14 @@
+.gameContainer {
+  display: flex;
+}
+
+.mycard {
+  background-color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  width: 300px;
+  height: 300px;
+}
