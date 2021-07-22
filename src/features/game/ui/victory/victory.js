@@ -11,9 +11,15 @@ export const Victory = () => {
   return (
     <>
       {/* <NavBar title={`Este es tu juego! Vamos a adivinar ${user.username}!`} signout={signout} user={user.username} /> */}
-      <div className={styles.gameContainer}>
-        Grande campeon! sos el maquina!
-        <button onClick={onBackToHall}>volve al hall</button>
+      <div className={styles.container}>
+        <div className={styles.img}>
+          <img src="./png/unicornio-festejo.png" alt="logo" width={130} />
+        </div>
+        <p className="bigTitle">GANASTE ESTE JUEGO</p>
+        <p className="bigTitle">¡Grande campeón!</p>
+        <button className="button" onClick={onBackToHall}>
+          volve al hall
+        </button>
       </div>
     </>
   );
