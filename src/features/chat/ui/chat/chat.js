@@ -178,7 +178,7 @@ export const Chat = ({
           <div className={styles.chatContainer}>
             {/* comienza el chat */}
             <div className={styles.chat}>
-              <div className={styles.divScroll} id="scroll">
+              <div className={styles.divScroll}>
                 {chatHistory.map((chat, index) => (
                   <div key={index}>
                     <Avatar username={chat.username} size={20} />
