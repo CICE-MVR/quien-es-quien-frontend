@@ -21,3 +21,7 @@
   align-items: center;
   padding: 10px;
 }
+
+.onlineList p {
+  margin-top: 30px;
+}

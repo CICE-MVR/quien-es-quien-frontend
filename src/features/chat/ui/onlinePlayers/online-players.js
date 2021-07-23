@@ -10,7 +10,7 @@ export const OnlinePlayers = ({ players = [], onAvatarPress }) => {
           <p className="colorTertiary boldText">Tus Amigos Conectados:</p>
         ) : (
           <p className="colorTertiary boldText">
-            Todavía no ha llegado nadie! Invitalos!
+            ¡Todavía no ha llegado nadie!
           </p>
         )}
         <div className={styles.avatarContainer}>
@@ -25,9 +25,15 @@ export const OnlinePlayers = ({ players = [], onAvatarPress }) => {
             );
           })}
         </div>
-        <p className="colorTertiary boldText">
-          ¡Haz click para invitarlos a jugar!
-        </p>
+        {players.length !== 0 ? (
+          <p className="colorTertiary boldText">
+            ¡Haz click para invitarlos a jugar!
+          </p>
+        ) : (
+          <p className="colorTertiary boldText">
+            No esperes más ¡Invitalos a jugar!
+          </p>
+        )}
       </div>
     </>
   );

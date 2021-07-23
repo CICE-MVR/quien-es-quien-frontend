@@ -12,6 +12,7 @@ import { OnlinePlayers } from "../onlinePlayers/online-players";
 
 import styles from "./chat.module.css";
 import { Card } from "../../../../core/components/card/card";
+import { Rules } from "../../../../core/components/rules/rules";
 
 export const Chat = ({
   myUsername = "anon",
@@ -172,11 +173,12 @@ export const Chat = ({
             </button>
           </Card>
         )}
+        {mode !== "game" && <Rules />}
         <div className={className}>
           <div className={styles.chatContainer}>
             {/* comienza el chat */}
             <div className={styles.chat}>
-              <div className={styles.divScroll}>
+              <div className={styles.divScroll} id="scroll">
                 {chatHistory.map((chat, index) => (
                   <div key={index}>
                     <Avatar username={chat.username} size={20} />
