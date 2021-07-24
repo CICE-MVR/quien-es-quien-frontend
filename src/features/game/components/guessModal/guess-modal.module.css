@@ -1,3 +1,8 @@
 .modalContainer {
   width: 700px;
 }
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+}

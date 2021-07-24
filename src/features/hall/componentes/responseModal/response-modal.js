@@ -18,7 +18,7 @@ export const ResponseModal = ({
         <p>
           <strong>{sender}</strong> te invita a jugar
         </p>
-        <div className={styles.btnGroup}>
+        <div className={styles.buttonContainer}>
           <button className={cn("button", styles.button)} onClick={onReject}>
             Rechazar
           </button>

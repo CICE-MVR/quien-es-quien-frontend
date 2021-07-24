@@ -1,6 +1,7 @@
 import React from "react";
 import { Avatar } from "../../../../core/components/avatar/avatar";
 import { Modal } from "../../../../core/components/modal/modal";
+import styles from "./invite-modal.module.css";
 
 export const InviteModal = ({
   recipient,
@@ -19,7 +20,7 @@ export const InviteModal = ({
         <p>
           ¿Quieres invitar a <strong>{recipient}</strong> a jugar?
         </p>
-        <div>
+        <div className={styles.buttonContainer}>
           <button className="button" onClick={onClick}>
             Si, invitar
           </button>
