@@ -201,6 +201,11 @@ export const Chat = ({
                   </div>
                 ))}
               </div>
+              {onlinePeopleArray.length === 0 && (
+                <div className={styles.aloneMessage}>
+                  ⚠️No hay nadie conectado en este momento...
+                </div>
+              )}
 
               <form onSubmit={onPostMessage} className={styles.form}>
                 <input
