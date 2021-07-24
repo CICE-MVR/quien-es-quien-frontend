@@ -170,7 +170,9 @@ export const Chat = ({
     e?.preventDefault();
     const message = inputValue;
     setInputValue("");
-    socket.current.emit("message", { room, username: myUsername, message });
+    if (message !== "") {
+      socket.current.emit("message", { room, username: myUsername, message });
+    }
     return false;
   };
 
