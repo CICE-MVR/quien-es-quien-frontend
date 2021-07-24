@@ -1,6 +1,4 @@
 :root {
-  /* --logo-url: url("/png/logo.png"); */
-
   --font-family-title: var(--font-family-ubuntu);
   --font-family-subtitle: var(--font-family-ubuntu);
   --font-family-body: var(--font-family-ubuntu);
@@ -14,9 +12,6 @@
 
   --primary-background: var(--color-pink);
   --primary-background-hover: var(--color-light-pink);
-
-  --tertiary-background: var(--color-yellow);
-  --tertiary-background-hover: var(--color-light-yellow);
 
   --button-text-transform: none;
 }
