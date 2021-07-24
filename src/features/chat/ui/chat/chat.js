@@ -90,6 +90,20 @@ export const Chat = ({
     setChatHistory((ch) => [...ch, response]);
   };
 
+  const chatRef = useRef();
+  const scrollToLast = () => {
+    if (!chatRef.current) {
+      return;
+    }
+    // https://stackoverflow.com/questions/27980084/scrolling-to-a-element-inside-a-scrollable-div-with-pure-javascript
+    // https://es.reactjs.org/docs/refs-and-the-dom.html#creating-refs
+    chatRef.current.scrollTop = chatRef.current.scrollHeight;
+  };
+
+  useEffect(() => {
+    scrollToLast();
+  }, [chatHistory]);
+
   useEffect(() => {
     socket.current = io(hostName);
     socket.current.on("response", (response) =>
@@ -178,7 +192,7 @@ export const Chat = ({
           <div className={styles.chatContainer}>
             {/* comienza el chat */}
             <div className={styles.chat}>
-              <div className={styles.divScroll}>
+              <div className={styles.divScroll} ref={chatRef}>
                 {chatHistory.map((chat, index) => (
                   <div key={index}>
                     <Avatar username={chat.username} size={20} />
