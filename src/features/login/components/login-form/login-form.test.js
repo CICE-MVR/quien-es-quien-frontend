@@ -10,15 +10,17 @@ const createLoginInfo = () => {
   };
 };
 
-test("submitting the form calls onClick with the username and password", async () => {
+test("submitting the form calls onClick with the email and password", async () => {
   const handleOnClick = jest.fn();
   const { email, password } = createLoginInfo();
 
   render(<LoginForm onClick={handleOnClick} />);
 
-  const emailInput = screen.getByPlaceholderText(/email/i);
-  const passwordInput = screen.getByPlaceholderText(/password/i);
-  const loginButton = screen.getByRole("button", { name: /login/i });
+  const emailInput = screen.getByPlaceholderText(
+    /quierojugar@quienesquien\.com/i
+  );
+  const passwordInput = screen.getByPlaceholderText(/contraseña/i);
+  const loginButton = screen.getByRole("button", { name: /a jugar!/i });
 
   userEvent.type(emailInput, email);
   userEvent.type(passwordInput, password);
@@ -38,8 +40,8 @@ test("submitting the form without email shows error", async () => {
 
   render(<LoginForm onClick={handleOnClick} />);
 
-  const passwordInput = screen.getByPlaceholderText(/password/i);
-  const loginButton = screen.getByRole("button", { name: /login/i });
+  const passwordInput = screen.getByPlaceholderText(/contraseña/i);
+  const loginButton = screen.getByRole("button", { name: /a jugar!/i });
 
   userEvent.type(passwordInput, password);
 
@@ -48,7 +50,7 @@ test("submitting the form without email shows error", async () => {
   // wait for react hook form
   await waitFor(() => expect(screen.queryAllByRole("alert")).toHaveLength(0));
 
-  expect(screen.getByText(/your email is required/i)).toBeInTheDocument();
+  expect(screen.getByText(/ingresa tu email/i)).toBeInTheDocument();
 });
 
 test("submitting the form without password shows error", async () => {
@@ -57,8 +59,10 @@ test("submitting the form without password shows error", async () => {
 
   render(<LoginForm onClick={handleOnClick} />);
 
-  const emailInput = screen.getByPlaceholderText(/email/i);
-  const loginButton = screen.getByRole("button", { name: /login/i });
+  const emailInput = screen.getByPlaceholderText(
+    /quierojugar@quienesquien\.com/i
+  );
+  const loginButton = screen.getByRole("button", { name: /a jugar!/i });
 
   userEvent.type(emailInput, email);
 
@@ -67,7 +71,7 @@ test("submitting the form without password shows error", async () => {
   // wait for react hook form
   await waitFor(() => expect(screen.queryAllByRole("alert")).toHaveLength(0));
 
-  expect(screen.getByText(/Please fill in your password/i)).toBeInTheDocument();
+  expect(screen.getByText(/ingresa tu password/i)).toBeInTheDocument();
 });
 
 test("submitting the form with and invalid email shows error", async () => {
@@ -77,9 +81,11 @@ test("submitting the form with and invalid email shows error", async () => {
 
   render(<LoginForm onClick={handleOnClick} />);
 
-  const emailInput = screen.getByPlaceholderText(/email/i);
-  const passwordInput = screen.getByPlaceholderText(/password/i);
-  const loginButton = screen.getByRole("button", { name: /login/i });
+  const emailInput = screen.getByPlaceholderText(
+    /quierojugar@quienesquien\.com/i
+  );
+  const passwordInput = screen.getByPlaceholderText(/contraseña/i);
+  const loginButton = screen.getByRole("button", { name: /a jugar!/i });
 
   userEvent.type(emailInput, email);
   userEvent.type(passwordInput, password);
@@ -89,5 +95,5 @@ test("submitting the form with and invalid email shows error", async () => {
   // wait for react hook form
   await waitFor(() => expect(screen.queryAllByRole("alert")).toHaveLength(0));
 
-  expect(screen.getByText(/please enter a valid email/i)).toBeInTheDocument();
+  expect(screen.getByText(/ingresa un email valido/i)).toBeInTheDocument();
 });

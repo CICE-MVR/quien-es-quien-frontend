@@ -3,7 +3,10 @@ import App from "./App";
 
 test("renders login when not loggedin", () => {
   render(<App />);
-  // screen.getByText(/learn react/i);
-  const linkElement = screen.getByRole("button", { name: /login/i });
-  expect(linkElement).toBeInTheDocument();
+
+  const enterButton = screen.getByRole("button", { name: /entrar/i });
+  const registerButton = screen.getByRole("button", { name: /registrarme/i });
+
+  expect(enterButton).toBeInTheDocument();
+  expect(registerButton).toBeInTheDocument();
 });
