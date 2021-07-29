@@ -12,7 +12,7 @@ import { OnlinePlayers } from "../onlinePlayers/online-players";
 
 import styles from "./chat.module.css";
 import { Card } from "../../../../core/components/card/card";
-import { Rules } from "../../../../core/components/rules/rules";
+import { Rules } from "../../components/rules/rules";
 
 export const Chat = ({
   myUsername = "anon",
